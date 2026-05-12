@@ -1,0 +1,10 @@
+{
+    "skip": [
+        "^http://localhost:(3000|6274)",
+        "sslip\\.io",
+        "api\\.githubcopilot\\.com"
+    ],
+    "recurse": true,
+    "directoryListing": true,
+    "markdown": true
+}
