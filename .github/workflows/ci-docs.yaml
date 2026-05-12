@@ -1,10 +1,12 @@
-name: CI Docs Skip
+name: CI Docs
 
 # Provides pass statuses for required checks when only non-code files change.
 # Without this, PRs touching only these paths can never merge because the real
 # workflows use paths-ignore and never report a status for the required checks.
 # The paths list below is the union of all paths-ignore entries from
 # images.yaml, tests.yaml, and code-style.yaml.
+#
+# linkinator checks for broken links, and is requrired.
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -53,3 +55,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "Docs-only change, skipping code style"
+
+  documentation-links:
+    name: Documentation Links
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: JustinBeckwith/linkinator-action@v2
+        with:
+          paths: "**/*.md"
